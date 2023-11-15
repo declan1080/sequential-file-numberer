@@ -13,31 +13,38 @@ ECHO.
 
 setlocal EnableDelayedExpansion
 
+:menu
 REM Display the menu
+ECHO.
+ECHO ------------------------------------------------------------
 ECHO Select an option:
 ECHO 1. Rename files in current directory
 ECHO 2. Rename files in a specific directory
 set /p option=Enter option number: 
-
+ECHO ------------------------------------------------------------
+ECHO.
 REM Check the selected option and execute the corresponding code
-if !option! == 1 (
+if %option% equ 1 (
     set "dir=%cd%"
-) else if !option! == 2 (
+) else if %option% equ 2 (
     set /p dir=Enter the directory path: 
 ) else (
     ECHO Invalid option selected.
-    pause
-    exit /b
+    cls
+    goto menu
 )
-
+REM Check if the user has write access to the directory
+if not exist %dir%\nul (
+    ECHO You do not have write access to the directory.
+    goto menu
+)
 REM Get the prefix from the user
 set /p prefix=(Optional) Enter the prefix: 
-
 REM Initialize the counter
 set /a counter=1
 
 REM Loop through each file in the directory
-for %%f in (%dir%\*) do (
+for %%f in ("%dir%\*") do (
     REM Get the extension of the file
     set "ext=%%~xf"
 
@@ -50,5 +57,8 @@ for %%f in (%dir%\*) do (
         set /a counter+=1
     )
 )
-pause
+REM Display the number of files renamed
+ECHO.
+ECHO Files renamed: %counter%
+    goto menu
 endlocal
