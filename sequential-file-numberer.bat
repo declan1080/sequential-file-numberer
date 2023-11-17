@@ -56,7 +56,7 @@ set /p startNumber=(Optional) Enter the starting number (e.g 5):
 
 REM Initialize the counter
 set /a counter=%startNumber%
-
+ECHO.
 REM Loop through each file in the directory
 for %%f in ("%dir%\%fileTypeFilter%") do (
     REM Get the extension of the file
@@ -64,16 +64,38 @@ for %%f in ("%dir%\%fileTypeFilter%") do (
 
     REM Check if the file is not the script file
     if not "%%~nxf" == "sequential-file-numberer.bat" (
-        REM Rename the file with the prefix, the counter, and the original extension
-        ren "%%f" "!prefix!!counter!!ext!"
+        REM Preview the file name change
+        ECHO Renaming "%%f" to "!prefix!!counter!!ext!"
 
         REM Increment the counter
         set /a counter+=1
     )
 )
-
-REM Display the number of files renamed
 ECHO.
-ECHO Files renamed: %counter%
+REM Ask for confirmation before renaming files
+set /p confirm=Do you want to proceed with the file renaming? (Y/N): 
+if /i "%confirm%"=="Y" (
+    REM Loop through each file in the directory again and rename the files
+    set /a counter=%startNumber%
+    for %%f in ("%dir%\%fileTypeFilter%") do (
+        REM Get the extension of the file
+        set "ext=%%~xf"
+
+        REM Check if the file is not the script file
+        if not "%%~nxf" == "sequential-file-numberer.bat" (
+            REM Rename the file with the prefix, the counter, and the original extension
+            ren "%%f" "!prefix!!counter!!ext!"
+
+            REM Increment the counter
+            set /a counter+=1
+        )
+    )
+    REM Display the number of files renamed
+    ECHO.
+    ECHO Files renamed: %counter%
+) else (
+    ECHO File renaming cancelled.
+)
+
 goto menu
 endlocal
