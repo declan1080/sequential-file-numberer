@@ -4,7 +4,7 @@ ECHO.
 ECHO ############################################################
 ECHO ##                                                        ## 
 ECHO ##            Sequential File Numberer                    ##
-ECHO ##            Version 1.1.0 17/11/2023                    ##
+ECHO ##            Version 1.0.1 17/11/2023                    ##
 ECHO ##                                                        ##
 ECHO ## https://github.com/declan1080/sequential-file-numberer ##
 ECHO ##                                                        ## 
@@ -46,13 +46,13 @@ if not exist "%dir%" (
 )
 
 REM Get the prefix from the user
-set /p prefix=(Optional) Enter the prefix: 
+set /p prefix=(Optional) Enter the prefix (e.g. GIT): 
 
 REM Get the file type filter from the user
 set /p fileTypeFilter=(Optional) Enter the file type filter (e.g. *.txt): 
 
 REM Get the starting number from the user
-set /p startNumber=(Optional) Enter the starting number: 
+set /p startNumber=(Optional) Enter the starting number (e.g 5): 
 
 REM Initialize the counter
 set /a counter=%startNumber%
