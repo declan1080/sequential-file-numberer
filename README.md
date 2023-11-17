@@ -4,9 +4,12 @@ This .BAT script renames files in sequential order.
 
 ## Features
 
-- Rename in current directory
-- Rename in custom directory
-- Optionial Prefix
+- Rename in current directory.
+- Rename in custom directory.
+- Optionial prefix.
+- File type filtering.
+- Custom starting number.
+- Changes preview.
 - Checks for write access and path existence.
 
 
