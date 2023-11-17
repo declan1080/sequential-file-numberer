@@ -90,7 +90,7 @@ if /i "%confirm%"=="Y" (
             set /a counter+=1
         )
     )
-    REM Display the number of files renamed
+    REM Display the number of files renamed.
     ECHO.
     ECHO Files renamed: %counter%
 ) else (
